@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  market-intelligence-api:
+    build: .
+    container_name: market-intelligence-api
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    environment:
+      - PORT=8000
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+
+  streamlit-dashboard:
+    build: .
+    container_name: streamlit-dashboard
+    command: streamlit run app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./artifacts:/app/artifacts
+    depends_on:
+      - market-intelligence-api
+    environment:
+      - PORT=8501
+      - API_URL=http://market-intelligence-api:8000
+    restart: unless-stopped
