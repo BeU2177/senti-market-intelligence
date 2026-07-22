@@ -198,5 +198,8 @@ python -m pytest
 
 - **Probabilistic Predictions**: All model forecasts ($1d, 3d, 5d, 7d$) are probabilistic statistical estimates and carry inherent market variance.
 - **Not Financial Advice**: The system is designed strictly for quantitative research, market intelligence, and education. It does not provide financial advice or guarantee trading profits.
+
+
+
 - **Provider Delays**: Polling-based market data from public endpoints carries standard exchange delays (15+ minutes).
 - **Execution Excluded**: Automated trading, brokerage integration, and live order placement are intentionally excluded.
